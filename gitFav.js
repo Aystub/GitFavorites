@@ -62,12 +62,16 @@ chrome.storage.sync.get("gitFavObjs", function(favorites){
         // Append the info to our <div>
         favDiv += '<li id="'+ favorite.project_name +'-fav" class="'+ favorite.project_type +' source gitFavs">\
                     <span class="mini-repo-list-item css-truncate">\
-                      <a href="'+ favorite.project_url + '">\
                         <span class="repo-icon octicon '+ type +'"></span>\
                         <span class="repo-and-owner css-truncate-target">\
-                          <span class="owner css-truncate-target" title="'+ owner +'">'+ owner +'</span>/<span class="repo" title="'+ project +'">'+ project +'</span>\
+                          <a href="' + owner + '">\
+                            <span class="owner css-truncate-target" title="'+ owner +'">'+ owner.trim() +'</span>\
+                          </a>\
+                          /\
+                          <a href="' + favorite.project_url + '">\
+                            <span class="repo" title="'+ project +'">'+ project +'</span>\
+                          </a>\
                         </span>\
-                      </a>\
                       <span class="stars">\
                         <span id="'+ favorite.project_name +'-unfav" class="octicon octicon-x" style="cursor:pointer;"></span>\
                       </span>\
