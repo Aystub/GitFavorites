@@ -2,8 +2,8 @@
 
 var key = "gitFavObjs";
 var label = "";
-var favoriteTxt = "<span class='octicon octicon-heart'></span> Favorite";
-var unfavoriteTxt = "<span class='octicon octicon-heart'></span> Unfavorite";
+var favoriteTxt = "Favorite";
+var unfavoriteTxt = "Unfavorite";
 
 var port = chrome.runtime.connect();
 
@@ -36,7 +36,9 @@ chrome.storage.sync.get(key, function(favorites){
     // Add and style our button
     var favButton = '<li>\
         <button id="git-add-fav" class="btn btn-sm js-toggler-target" aria-label="'+ label +' this repository" title="'+ label + ' ' + window.location.href + '" text:'+ label +'">\
-            <span class="octicon octicon-heart"></span> '+ label +'\
+            <svg class="octicon octicon-heart" height="16" width="16" viewBox="0 0 16 16" version="1.1">\
+        		<path d="M11.2,3 C10.68,2.37 9.95,2.05 9,2 C8.03,2 7.31,2.42 6.8,3 C6.29,3.58 6.02,3.92 6,4 C5.98,3.92 5.72,3.58 5.2,3 C4.68,2.42 4.03,2 3,2 C2.05,2.05 1.31,2.38 0.8,3 C0.28,3.61 0.02,4.28 0,5 C0,5.52 0.09,6.52 0.67,7.67 C1.25,8.82 3.01,10.61 6,13 C8.98,10.61 10.77,8.83 11.34,7.67 C11.91,6.51 12,5.5 12,5 C11.98,4.28 11.72,3.61 11.2,2.98 L11.2,3 Z" id="Shape"></path>\
+            </svg><span id="fav-label">'+ label +' </span>\
         </button>\
       </li>';
 
@@ -49,22 +51,20 @@ chrome.storage.sync.get(key, function(favorites){
         chrome.storage.sync.get(key, function(favorites){
             if(favorites.gitFavObjs != undefined){
               // If we have already favorited this repo, remove it
-              console.log("lable: " + label);
               if(label == "Unfavorite"){
                 console.log("Favorite Removed");
                 favorites.gitFavObjs.splice(position, 1);
-                document.getElementById("git-add-fav").innerHTML = favoriteTxt;
+                document.getElementById("fav-label").innerHTML = favoriteTxt;
                 label = "Favorite";
               }else{ // Else, add it
                 console.log("Favorite staged to be saved");
                 favorites.gitFavObjs.push({'project_name': document.title, 'project_type': type, 'project_url': window.location.href}); //"https://github.com/"+document.getElementsByTagName('meta')['twitter:title'].getAttribute('content')
-                document.getElementById("git-add-fav").innerHTML = unfavoriteTxt;
+                document.getElementById("fav-label").innerHTML = unfavoriteTxt;
                 label = "Unfavorite";
               }
             }else{ // If this is the first one we've saved, set it up as an array of objects
-              console.log("1st Favorite staged to be saved");
               favorites.gitFavObjs = [{'project_name': document.title, 'project_type': type, 'project_url': window.location.href}];
-              document.getElementById("git-add-fav").innerHTML = unfavoriteTxt;
+              document.getElementById("fav-label").innerHTML = unfavoriteTxt;
               label = "Unfavorite";
             }
 
