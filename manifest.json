@@ -3,7 +3,7 @@
 
   "name": "GitFavorites",
   "description": "Add favorites to GitHub",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "icons": {
     "19": "images/icon19.png",
     "96": "images/icon96.png",

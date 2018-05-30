@@ -58,7 +58,7 @@ chrome.storage.sync.get(key, function(favorites){
                 label = "Favorite";
               }else{ // Else, add it
                 console.log("Favorite staged to be saved");
-                favorites.gitFavObjs.push({'project_name': document.title, 'project_type': type, 'project_url': window.location.href}); //"https://github.com/"+document.getElementsByTagName('meta')['twitter:title'].getAttribute('content')
+                favorites.gitFavObjs.push({'project_name': document.title.split(":")[0], 'project_type': type, 'project_url': window.location.href}); //"https://github.com/"+document.getElementsByTagName('meta')['twitter:title'].getAttribute('content')
                 document.getElementById("fav-label").innerHTML = unfavoriteTxt;
                 label = "Unfavorite";
               }
